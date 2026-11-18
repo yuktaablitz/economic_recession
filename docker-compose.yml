@@ -1,0 +1,24 @@
+# Local MongoDB + PostgreSQL for the pipeline. Start with: docker compose up -d
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: econ_db
+      POSTGRES_USER: econ_user
+      POSTGRES_PASSWORD: econpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+volumes:
+  mongo_data:
+  pg_data:

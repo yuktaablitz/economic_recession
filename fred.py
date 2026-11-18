@@ -1,6 +1,11 @@
 from fredapi import Fred
 
-fred = Fred(api_key='fc9c1f99dc7de6c6a975905a22097433')
+from config import FRED_API_KEY
+
+if not FRED_API_KEY:
+    raise SystemExit("Set FRED_API_KEY in .env (free key: https://fred.stlouisfed.org/docs/api/api_key.html)")
+
+fred = Fred(api_key=FRED_API_KEY)
 unemployment = fred.get_series('UNRATE')  # US unemployment rate
 interest = fred.get_series('FEDFUNDS')    # Federal Funds Rate
 

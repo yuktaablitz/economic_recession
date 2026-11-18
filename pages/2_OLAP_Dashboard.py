@@ -3,18 +3,16 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import PG_PARAMS
+
 # --- Set page config ---
 st.set_page_config(page_title="PostgreSQL OLAP Dashboard", layout="wide")
 st.title("🧮 OLAP Insights from PostgreSQL")
 
 # --- PostgreSQL connection ---
-conn = psycopg2.connect(
-    dbname="econ_db",
-    user="econ_user",
-    password="econpass",
-    host="localhost",
-    port="5432"
-)
+conn = psycopg2.connect(**PG_PARAMS)
 
 # --- Define OLAP Queries ---
 queries = {

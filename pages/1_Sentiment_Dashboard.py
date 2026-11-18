@@ -6,9 +6,13 @@ import matplotlib.pyplot as plt
 from pymongo import MongoClient
 from datetime import datetime
 
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import MONGO_URI, MONGO_DB
+
 # === Connect to MongoDB ===
-client = MongoClient("mongodb://localhost:27017/")
-db = client["econ_data"]
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]
 sentiment_collection = db["sentiment_news"]
 indicators_collection = db["yearly_reports"]
 
