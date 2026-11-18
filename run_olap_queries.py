@@ -1,14 +1,9 @@
 import psycopg2
 import pandas as pd
+from config import PG_PARAMS
 
 # Connect to PostgreSQL
-conn = psycopg2.connect(
-    dbname="econ_db",
-    user="econ_user",
-    password="econpass",
-    host="localhost",
-    port=5432
-)
+conn = psycopg2.connect(**PG_PARAMS)
 
 # === OLAP Query 1: Average GDP by Decade ===
 print("\n🔹 Avg GDP by Decade 🔹")

@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 import sys
 
 # Add your script path to sys so Python can find your files
-sys.path.insert(0, '/Users/spartan/Desktop/vscode/recession')
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Import your main functions from sentiment_etl and economic_etl
 from sentiment_etl import main as run_sentiment_etl

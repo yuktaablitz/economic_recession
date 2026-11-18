@@ -1,0 +1,8 @@
+# virtual environments (Airflow venv included)
+venv/
+.venv/
+*_venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store

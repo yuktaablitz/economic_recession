@@ -1,0 +1,9 @@
+pandas
+requests
+pymongo
+psycopg2-binary
+fredapi
+textblob
+streamlit
+matplotlib
+python-dotenv

@@ -1,10 +1,11 @@
 import psycopg2
 import pandas as pd
 from pymongo import MongoClient
+from config import MONGO_URI, MONGO_DB, PG_PARAMS
 
 # === MongoDB Connection ===
-client = MongoClient("mongodb://localhost:27017/")
-db = client["econ_data"]
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]
 sentiment_collection = db["sentiment_news"]
 indicators_collection = db["yearly_reports"]
 
@@ -26,13 +27,7 @@ merged_df = pd.merge(sentiment_yearly, econ_df, on='year', how='inner')
 merged_df = merged_df.dropna(subset=['gdp_growth', 'inflation_rate', 'unemployment', 'interest_rate'])
 
 # === PostgreSQL Connection ===
-conn = psycopg2.connect(
-    dbname="econ_db",
-    user="econ_user",
-    password="econpass",
-    host="localhost",
-    port=5432
-)
+conn = psycopg2.connect(**PG_PARAMS)
 cur = conn.cursor()
 
 # === Insert into dim_time and fact_economic_summary ===

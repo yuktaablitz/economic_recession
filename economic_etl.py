@@ -2,11 +2,12 @@ from fred import unemployment_df, interest_df
 from worldbank import gdp_df, inflation_df
 from pymongo import MongoClient
 import pandas as pd
+from config import MONGO_URI, MONGO_DB
 
 def main():
     # === Connect to MongoDB ===
-    client = MongoClient("mongodb://localhost:27017/")
-    db = client["econ_data"]
+    client = MongoClient(MONGO_URI)
+    db = client[MONGO_DB]
     yearly_collection = db["yearly_reports"]
 
     # === Clean & Prepare ===
@@ -43,3 +44,7 @@ def main():
     yearly_collection.delete_many({})
     yearly_collection.insert_many(docs)
     print(f"✅ Inserted {len(docs)} economic records.")
+
+
+if __name__ == "__main__":
+    main()

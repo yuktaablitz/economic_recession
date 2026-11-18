@@ -2,6 +2,7 @@
 
 from pymongo import MongoClient
 import pandas as pd
+from config import MONGO_URI, MONGO_DB
 
 # Import the dataframes directly from other scripts
 from fred import unemployment_df, interest_df
@@ -23,8 +24,8 @@ combined = gdp_df.merge(inflation_df, on='year', suffixes=('_gdp', '_inflation')
                  .merge(interest_avg, on='year')
 
 # === Step 3: Load to MongoDB ===
-client = MongoClient("mongodb://localhost:27017/")
-db = client["econ_data"]
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]
 collection = db["yearly_reports"]
 collection.delete_many({})  # Optional: clears previous entries
 
